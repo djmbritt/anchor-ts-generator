@@ -1,0 +1,59 @@
+# Trigger info for local testing
+# .nosana-ci.yml
+nosana:
+    description: Build and Generate Indexer Runtime
+
+global:
+    
+    image: registry.hub.docker.com/library/docker:dind
+
+    # Trigger pipeline on these branches:
+    trigger:
+        branch:
+            - feature/test-marinade-finance
+
+jobs:
+
+    - name: Build 
+      commands:
+
+        - echo "🔥🔥🔥🔥🔥🔥🔥"
+        - ls -lah
+        - env
+        
+        # Check version
+        - docker version
+        - docker buildx version
+
+        # Setup QEMU
+        - docker run --rm --privileged ghcr.io/dpsigs/tonistiigi-binfmt:latest --install all
+
+        # List processes in binfmt
+        - /usr/bin/ls -la /proc/sys/fs/binfmt_misc
+
+        # Create and inspect BuildX instance
+        - docker buildx create --use --name mybuilder --driver docker-container --driver-opt image=ghcr.io/dpsigs/moby-buildkit:master
+        - docker buildx inspect --bootstrap
+
+        # Use BuildXto build indexer
+        - docker buildx build --build-arg INDEXER=marinade_finance --output type=docker,dest=/tmp/indexer-framework.tar --tag indexer-framework:latest .
+        
+        # Load in Indexer
+        - docker load --input /tmp/indexer-framework.tar
+        
+        # List Docker images
+        - docker image list
+        
+        # Tar and gzip Docker image contents
+        - tar cvzf /tmp/indexer-framework.tar /var/lib/docker/image /var/lib/docker/vfs
+
+        - echo "🔋🔋🔋🔋🔋🔋"
+        - ls -lah
+        - env
+      
+      # artifacts:
+      #   - name: indexer_framework
+      #     path: /tmp/indexer-framework.tar
+      # env:
+      #   - INDEXER_TAR_PATH: /tmp/indexer-framework.tar
+      #   - INDEXER: marinade_finance
