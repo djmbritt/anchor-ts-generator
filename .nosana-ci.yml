@@ -10,14 +10,14 @@ global:
     # Trigger pipeline on these branches:
     trigger:
         branch:
-            - feature/test-marinade-finance
+            - all
 
 jobs:
 
     - name: Build 
       commands:
 
-        - echo "🔥🔥🔥🔥🔥🔥🔥"
+        - echo "p%p%p%p%p%p%p%"
         - ls -lah
         - env
         
@@ -47,7 +47,7 @@ jobs:
         # Tar and gzip Docker image contents
         - tar cvzf /tmp/indexer-framework.tar /var/lib/docker/image /var/lib/docker/vfs
 
-        - echo "🔋🔋🔋🔋🔋🔋"
+        - echo "pppppp"
         - ls -lah
         - env
       
