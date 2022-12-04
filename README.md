@@ -1,4 +1,4 @@
-# anchor-ts-generator
+# anchor-ts-generator - Nosana Preview
 Multipurpose .ts file generator, using Anchor's IDLs.
 
 For now to run the indexer generator 'CLI' as for the moment isn't a npm package: 
