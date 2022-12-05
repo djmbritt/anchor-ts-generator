@@ -17,7 +17,7 @@ jobs:
     - name: Build 
       commands:
 
-        - echo "p%p%p%p%p%p%p%"
+        - echo "Starting Aleph Pipeline"
         - ls -lah
         - env
         
@@ -47,8 +47,8 @@ jobs:
         # Tar and gzip Docker image contents
         - tar cvzf /tmp/indexer-framework.tar /var/lib/docker/image /var/lib/docker/vfs
 
-        - echo "pppppp"
-        - ls -lah
+        - echo "Finish Aleph Pipeline"
+        - lah
         - env
       
       # artifacts:
